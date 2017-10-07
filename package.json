@@ -7,6 +7,7 @@
     "dev": "webpack-dev-server"
   },
   "dependencies": {
+    "@angular-redux/store": "^6.5.7",
     "@angular/common": "^4.2.4",
     "@angular/compiler": "^4.2.4",
     "@angular/core": "^4.2.4",
@@ -15,7 +16,10 @@
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@types/leaflet": "^1.2.0",
     "core-js": "^2.4.1",
+    "flux-standard-action": "^1.2.0",
     "leaflet": "^1.2.0",
+    "redux": "^3.7.2",
+    "redux-observable": "^0.16.0",
     "rxjs": "^5.4.2",
     "zone.js": "^0.8.14"
   },
