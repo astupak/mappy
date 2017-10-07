@@ -1,20 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { IAppState } from "../store/model";
-import { NgRedux } from "@angular-redux/store";
-import { LatLng } from 'leaflet';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  template: `
-    <div>
-    </div>
-  `,
+  selector: '[app-root]',
+  templateUrl: './app.component.html',
+  styleUrls: ['app.component.css']
 })
-
-export class AppComponent implements OnInit {
-
-  constructor(private ngRedux: NgRedux<IAppState>, ) { }
-
-  ngOnInit() {
-  }
-}
+export class AppComponent {}
