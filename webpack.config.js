@@ -11,12 +11,22 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.html$/,
+        loader: 'raw-loader'
+      },
+      {
         test: /\.ts$/,
-        loader: 'ts-loader',
-        exclude: /node_modules/
+        use: [
+          {
+              loader: 'awesome-typescript-loader?'
+          },
+          {
+              loader: 'angular2-template-loader'
+          }
+        ]
       }, {
         test: /\.css$/,
-        loaders: 'style-loader!css-loader',
+        loader: 'raw-loader',
         exclude: /node_modules/
       }
     ]
