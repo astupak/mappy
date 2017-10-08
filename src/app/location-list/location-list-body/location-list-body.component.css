@@ -1,0 +1,40 @@
+
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.list__header {
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.list__body {}
+
+.list__body input {
+  display: none;
+}
+
+
+.list__row {
+  display: flex;
+  align-items: center;
+  min-height: 50px;
+  border-bottom: 1px solid #e2e2e2;
+}
+
+.list__body .list__row:hover {
+  background: #e3e3e3;
+}
+
+.list__row_checked {
+  background: #c9c9c9 !important;
+  border-bottom: 1px solid #c9c9c9;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.list__cell {
+  display: flex;
+  flex: 1;
+  justify-content: space-around;
+}

@@ -8,4 +8,18 @@ export class LocationActions {
   static readonly ADD_LOCATION = 'ADD_LOCATION';
   static readonly DELETE_LOCATION = 'DELETE_LOCATION';
   static readonly PICK_LOCATION = 'PICK_LOCATION';
+
+  static pickLocation(payload: number) {
+    return {
+      type: LocationActions.PICK_LOCATION,
+      payload
+    };
+  }
+
+  static deleteLocation() {
+    return {
+      type: LocationActions.DELETE_LOCATION,
+      payload: null,
+    };
+  }
 }

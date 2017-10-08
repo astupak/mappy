@@ -2,43 +2,53 @@
   "locations": [
     {
       "latLng": [44.66, 3.59],
-      "zoom": 13
+      "zoom": 13,
+      "name": "Erskine"
     }, 
     {
       "latLng": [53.28, 8.55],
-      "zoom": 13
+      "zoom": 13,
+      "name": "Toal"
     }, 
     {
       "latLng": [50.14, -11.11],
-      "zoom": 13
+      "zoom": 13,
+      "name": "Kelan"
     }, 
     {
       "latLng": [52.99, -12.63],
-      "zoom": 13
+      "zoom": 13,
+      "name": "Ceallach"
     }, 
     {
       "latLng": [51.64, 2.15],
-      "zoom": 13
+      "zoom": 13,
+      "name": "Shay"
     }, 
     {
       "latLng": [51.08, 3.6],
-      "zoom": 13
+      "zoom": 13,
+      "name": "Teigue"
     }, 
     {
       "latLng": [50.47, 6.38],
-      "zoom": 13
+      "zoom": 13,
+      "name": "Barra"
     }, 
     {
       "latLng": [46.93, -3.08],
-      "zoom": 13
+      "zoom": 13,
+      "name": "Mahon"
     }, 
     {
       "latLng": [56.63, 10.15],
-      "zoom": 13
+      "zoom": 13,
+      "name": "Declan"
     }, 
     {
       "latLng": [53.85, 11.18],
-      "zoom": 13
+      "zoom": 13,
+      "name": "Womble"
     }
   ]
 }
