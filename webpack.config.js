@@ -28,6 +28,10 @@ module.exports = {
         test: /\.css$/,
         loader: 'raw-loader',
         exclude: /node_modules/
+      }, {
+        test  : /\.png$/,
+        loader: 'url-loader',
+        query : {mimetype: 'image/png'}
       }
     ]
   },
