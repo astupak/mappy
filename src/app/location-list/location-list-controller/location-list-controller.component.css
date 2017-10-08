@@ -1,0 +1,25 @@
+.controller {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.16), 0 1px 2px rgba(0,0,0,0.23);
+  min-height: 100px;
+  background: #eaeaea;
+}
+
+.controller__field {
+  display: flex;
+  flex: 1;
+  justify-content: space-around;
+}
+
+.controller__field input {
+  max-width: 80px;
+  box-sizing: border-box;
+}
+
+
+.controller__fieldContent {
+  display: flex;
+  flex-direction: column;
+}

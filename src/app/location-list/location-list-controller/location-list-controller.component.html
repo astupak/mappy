@@ -1,0 +1,37 @@
+<div class="controller">
+  <div class="controller__field">
+    <div class="controller__fieldContent">
+      <label for="name">Name</label>
+      <input type="text" name="name" (change)="locationName=$event.target.value">
+    </div>    
+  </div>
+  <div class="controller__field">
+   <div class="controller__fieldContent">
+      <label for="latitude">Latitude</label>
+      <input type="text" name="latitude" (change)="latitude=$event.target.value">
+    </div>
+    <div class="controller__fieldContent">
+      <label for="longitude">Longitude</label>
+      <input type="text" name="longitude" (change)="longitude=$event.target.value">
+    </div>
+  </div>
+  <div class="controller__field">
+    <div class="controller__fieldContent">
+      <label for="zoom">Zoom</label>
+      <input type="text" name="zoom" (change)="zoom=$event.target.value">
+    </div>
+  </div>
+  <div class="controller__field">
+    <div class="controller__fieldContent">
+          <!-- 
+            #todo: make a proper button, you lazy pleb!
+          -->
+         <div 
+          style="height: 30px; width: 90px; line-height: 30px; text-align: center; border-radius: 3px; background: #00E676; color: #fff"
+          (click) = "addLocation()"
+          >
+          Add
+        </div>
+    </div>
+  </div>
+</div>

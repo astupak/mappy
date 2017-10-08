@@ -1,7 +1,5 @@
-import { LatLng } from 'leaflet';
-
 export interface ILocation {
-  latLng: LatLng;
-  size: number;
+  latLng: number[];
+  zoom: number;
   name: string
 }

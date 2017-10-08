@@ -12,7 +12,7 @@ export class LocationActions {
   static pickLocation(payload: number) {
     return {
       type: LocationActions.PICK_LOCATION,
-      payload
+      payload,
     };
   }
 
@@ -20,6 +20,13 @@ export class LocationActions {
     return {
       type: LocationActions.DELETE_LOCATION,
       payload: null,
+    };
+  }
+
+  static addLocation(payload: ILocation) {
+    return {
+      type: LocationActions.ADD_LOCATION,
+      payload,
     };
   }
 }
