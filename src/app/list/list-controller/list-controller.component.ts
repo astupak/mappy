@@ -6,12 +6,12 @@ import { LatLng } from 'leaflet';
 
 
 @Component({
-  selector: 'app-location-list-controller',
-  templateUrl: './location-list-controller.component.html',
-  styleUrls: ['location-list-controller.component.css']
+  selector: 'app-list-controller',
+  templateUrl: './list-controller.component.html',
+  styleUrls: ['list-controller.component.css']
 })
 
-export class LocationListControllerComponent {
+export class ListControllerComponent {
   
   filterButtonText: string = 'Filter';
   addButtonText: string = 'Add';

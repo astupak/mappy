@@ -6,12 +6,12 @@ import { ILocation } from '../../../location/model';
 import { IAppState } from '../../../store/model';
 
 @Component({
-  selector: 'app-location-list-body',
-  templateUrl: './location-list-body.component.html',
-  styleUrls: ['location-list-body.component.css']
+  selector: 'app-list-body',
+  templateUrl: './list-body.component.html',
+  styleUrls: ['list-body.component.css']
 })
 
-export class LocationListBodyComponent {
+export class ListBodyComponent {
   @select('locations') readonly locations: Observable<ILocation[]>;
   @select('selected') readonly selected: Observable<number>;
 

@@ -7,18 +7,18 @@ import { StoreModule } from '../store/module';
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { ButtonComponent } from './button/button.component';
-import { LocationListComponent } from './location-list/location-list.component';
-import { LocationListBodyComponent } from './location-list/location-list-body/location-list-body.component';
-import { LocationListControllerComponent } from './location-list/location-list-controller/location-list-controller.component';
+import { ListComponent } from './list/list.component';
+import { ListBodyComponent } from './list/list-body/list-body.component';
+import { ListControllerComponent } from './list/list-controller/list-controller.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
     ButtonComponent,
-    LocationListComponent,
-    LocationListBodyComponent,
-    LocationListControllerComponent
+    ListComponent,
+    ListBodyComponent,
+    ListControllerComponent
   ],
   imports: [
     BrowserModule,
