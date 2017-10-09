@@ -13,10 +13,9 @@ import { LatLng } from 'leaflet';
 
 export class LocationListControllerComponent {
   
-  locationName: string;
-  latitude: number;
-  longitude: number;
-  zoom: number;
+  locationName: string = 'Location';
+  latitude: number = 55.0;
+  longitude: number = 12.0;
 
   constructor(private ngRedux: NgRedux<IAppState>) {
     console.log(this.ngRedux.getState().locations)
@@ -26,7 +25,6 @@ export class LocationListControllerComponent {
     this.ngRedux.dispatch(LocationActions.addLocation({
       name: this.locationName,
       latLng: [Math.round(this.latitude * 100)/100, Math.round(this.longitude*100)/100],
-      zoom: parseInt(<string><any>this.zoom)
     }))
   }
 

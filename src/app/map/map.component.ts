@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import 'rxjs/add/operator/pairwise';
 import { Observable } from 'rxjs/Observable';
 import { NgRedux, select } from '@angular-redux/store';
 import { LocationActions } from '../../store/actions';
 import { ILocation } from '../../location/model';
 import { IAppState } from '../../store/model';
 
-import { map, tileLayer, popup, marker, LatLng, Icon } from "leaflet";
-// import icon from 'leaflet/dist/images/marker-icon.png';
-// import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import { Map, tileLayer, LatLng, Icon, map, Marker } from "leaflet";
 import 'style-loader!css-loader!leaflet/dist/leaflet.css';
 
 @Component({
@@ -20,34 +19,95 @@ export class MapComponent implements OnInit {
   @select('locations') readonly locations: Observable<ILocation[]>;
   @select('selected') readonly selected: Observable<number>;
 
+  mapElement: Map;
+  pickedMarkerIndex: number = -1;
+  pickedMarker: Marker;
+  mapMarkers: Marker[] = [];
+  commonIcon: Icon;
+  pickedIcon: Icon;
+
   constructor(private ngRedux: NgRedux<IAppState>) {
-    console.log(this.ngRedux.getState().locations)
+    this.commonIcon = new Icon({
+      iconUrl: 'http://www.pngall.com/wp-content/uploads/2017/05/Map-Marker-Free-Download-PNG.png',
+      iconSize: [38, 38], // size of the icon
+    });
+
+    this.pickedIcon = new Icon({
+      iconUrl: 'http://www.pngall.com/wp-content/uploads/2017/05/Map-Marker-PNG-Picture.png',
+      iconSize: [38, 38], // size of the icon
+    });
   }
 
   ngOnInit() {
-    //leaflet could not find marker images for some reason
-    
-    Icon.Default.imagePath = ' ';
-    Icon.Default.mergeOptions({
-      iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-      iconUrl: require('leaflet/dist/images/marker-icon.png'),
-      shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
-    });
+   this.initMap();
+   this.setMarkers();
 
-    const mapElement = map('map', { zoomControl: false })
-      .setView([51.505, -0.09], 13);
+   this.mapElement.setView(this.mapMarkers[0].getLatLng(),5);
 
-    tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(mapElement);
+   this.selected.subscribe((index) => {
+     this.toggleMarker(index);
+   });
 
-    let location = this.ngRedux.getState().locations[0].latLng;
-    marker(new LatLng(location[0], location[1])).addTo(mapElement);
-    mapElement.setView([location[0], location[1]], 13);
+   this.locations.pairwise().subscribe(([oldList, newList]) => {
+     if (oldList.length > newList.length) {
+       this.removeMarker();
+     } else {
+       console.log(newList)
+       this.addMarker(newList[newList.length-1].latLng);
+     }
+   })
+
+  }
+
+  initMap() {
+
+    this.mapElement =  map('map', { zoomControl: false });
+
+    tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(this.mapElement);
 
 
   }
 
   pickLocation(index) {
     this.ngRedux.dispatch(LocationActions.pickLocation(index));
+  }
+
+  setMarkers() {
+    const locations = this.ngRedux.getState().locations;
+
+    for (let { latLng } of locations) {
+      this.addMarker(latLng);
+    }
+  }
+
+  addMarker(latLng) {
+    let newMarker = new Marker(new LatLng(latLng[0],latLng[1]), { icon: this.commonIcon});
+
+    this.mapMarkers.push(newMarker);
+    newMarker.addTo(this.mapElement);
+
+    newMarker.on('click', () => {
+      this.pickLocation(this.mapMarkers.indexOf(newMarker));
+    })
+  }
+
+  toggleMarker(index) {
+    if (index != -1) {
+      if (this.pickedMarker) {
+        this.pickedMarker.setIcon(this.commonIcon);
+      }
+      this.pickedMarkerIndex = index;
+      this.pickedMarker = this.mapMarkers[index];
+      this.pickedMarker.setIcon(this.pickedIcon);
+      this.mapElement.setView(this.pickedMarker.getLatLng(), 5);
+    }
+  }
+
+  removeMarker() {
+    this.pickedMarker.remove();
+    this.pickedMarker = null;
+    this.mapMarkers.splice(this.pickedMarkerIndex, 1);
+    this.pickedMarkerIndex = -1;
   }
 }
 

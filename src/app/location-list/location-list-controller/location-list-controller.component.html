@@ -2,23 +2,17 @@
   <div class="controller__field">
     <div class="controller__fieldContent">
       <label for="name">Name</label>
-      <input type="text" name="name" (change)="locationName=$event.target.value">
+      <input type="text" name="name" [(ngModel)]="locationName">
     </div>    
   </div>
   <div class="controller__field">
    <div class="controller__fieldContent">
       <label for="latitude">Latitude</label>
-      <input type="text" name="latitude" (change)="latitude=$event.target.value">
+      <input type="number" name="latitude" [(ngModel)]="latitude">
     </div>
     <div class="controller__fieldContent">
       <label for="longitude">Longitude</label>
-      <input type="text" name="longitude" (change)="longitude=$event.target.value">
-    </div>
-  </div>
-  <div class="controller__field">
-    <div class="controller__fieldContent">
-      <label for="zoom">Zoom</label>
-      <input type="text" name="zoom" (change)="zoom=$event.target.value">
+      <input type="number" name="longitude" [(ngModel)]="longitude">
     </div>
   </div>
   <div class="controller__field">
