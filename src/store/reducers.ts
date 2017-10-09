@@ -8,7 +8,7 @@ export const rootReducer = function(state: IAppState, action: LocationAction): I
     case LocationActions.ADD_LOCATION:
 
       let newLocation = Object.assign({}, action.payload, { id: state._id });
-      let rawLocations = [ ...state.locations, newLocation ];
+      let rawLocations = [ ...state.rawLocations, newLocation ];
 
       return Object.assign({}, state, {
         rawLocations,
