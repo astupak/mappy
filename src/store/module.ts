@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { NgRedux } from '@angular-redux/store';
 
-import { IAppState } from './model';
 import { rootReducer } from './reducers';
+import { IAppState } from './model';
 
 import data from '../location/locations.mock.json';
 

@@ -1,17 +1,17 @@
 .controller {
+  background: #eaeaea;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.16), 0 1px 2px rgba(0,0,0,0.23);
   display: flex;
   flex-direction: column;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.16), 0 1px 2px rgba(0,0,0,0.23);
   min-height: 100px;
-  background: #eaeaea;
 }
 
 .controller__row {
-  display: flex;
-  justify-content: space-around;
   align-items: center;
-  height: 50px;
   border-bottom: 1px solid #aaa;
+  display: flex;
+  height: 50px;
+  justify-content: space-around;
 }
 
 .controller__field {
@@ -21,15 +21,14 @@
 }
 
 .controller__field input {
-  width: 100%;
   box-sizing: border-box;
+  width: 100%;
 }
 
-
 .controller__fieldContent {
-  margin-right: 15px;
   display: flex;
   flex-direction: column;
+  margin-right: 15px;
 }
 
 .controller__fieldContent:last-child {

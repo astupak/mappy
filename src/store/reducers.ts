@@ -21,19 +21,10 @@ export const rootReducer = function(state: IAppState, action: LocationAction): I
       if (state.selected === -1) {
         return state;
       }
-
-      const newLocations = Array.from(state.locations);
-      const newRawLocations = Array.from(state.rawLocations);
-
-      const locationIndex = newLocations.findIndex((item) => item.id == state.selected);
-      const rawLocationIndex = newRawLocations.findIndex((item) => item.id == state.selected);
-
-      newLocations.splice(locationIndex, 1);
-      newRawLocations.splice(rawLocationIndex, 1);
       
       return Object.assign({}, state, {
-        rawLocations: newRawLocations,
-        locations: newLocations,
+        rawLocations: removeById(state.rawLocations, state.selected),
+        locations: removeById(state.locations, state.selected),
         selected: -1
       });
 
@@ -56,4 +47,13 @@ function filter(list: ILocation[], substr): ILocation[] {
   return list.filter((item)=> {
     return item.name.includes(substr);
   })
+}
+
+function removeById(list: ILocation[], id: number) :ILocation[] {
+  const newList = Array.from(list);
+  const index = newList.findIndex((item) => item.id == id);
+
+  newList.splice(index, 1);
+
+  return newList;
 }

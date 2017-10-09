@@ -5,4 +5,5 @@ import { Component } from '@angular/core';
   templateUrl: './location-list.component.html',
   styleUrls: ['location-list.component.css']
 })
-export class LocationListComponent {}
+
+export class LocationListComponent { }

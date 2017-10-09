@@ -8,7 +8,7 @@ import { IAppState } from '../../store/model';
 
 import { IMarker } from './marker.model';
 
-import { Map, tileLayer, LatLng, Icon, map, Marker  } from "leaflet";
+import { Map, LatLng, Icon, Marker, tileLayer } from "leaflet";
 import 'style-loader!css-loader!leaflet/dist/leaflet.css';
 
 @Component({
@@ -30,38 +30,38 @@ export class MapComponent implements OnInit {
   constructor(private ngRedux: NgRedux<IAppState>) {
     this.commonIcon = new Icon({
       iconUrl: 'http://www.pngall.com/wp-content/uploads/2017/05/Map-Marker-Free-Download-PNG.png',
-      iconSize: [38, 38], // size of the icon
+      iconSize: [38, 38],
     });
 
     this.pickedIcon = new Icon({
       iconUrl: 'http://www.pngall.com/wp-content/uploads/2017/05/Map-Marker-PNG-Picture.png',
-      iconSize: [38, 38], // size of the icon
+      iconSize: [38, 38],
     });
   }
 
   ngOnInit() {
     this.initMap();
     this.setMarkers();
+
     this.selected.subscribe((id) => {
       this.toggleMarker(id);
     });
 
     this.locations.skip(1).subscribe(() => {
-      console.log(123);
       this.resetMarkers();
-    })
+    });
   }
 
   initMap() {
 
-    this.mapElement =  map('map', { zoomControl: false });
+    this.mapElement = new Map('map', { zoomControl: false });
 
     tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(this.mapElement);
 
     this.mapElement.setView([0,0],1);
   }
 
-  pickLocation(id) {
+  pickLocation(id: number) {
     this.ngRedux.dispatch(LocationActions.pickLocation(id));
   }
 
@@ -73,7 +73,7 @@ export class MapComponent implements OnInit {
     }
   }
 
-  addMarker(location) {
+  addMarker(location: ILocation) {
     const newMarker = {
       marker: new Marker(new LatLng(location.latLng[0],location.latLng[1]), { icon: this.commonIcon}),
       id: location.id
@@ -88,7 +88,7 @@ export class MapComponent implements OnInit {
     })
   }
 
-  toggleMarker(id) {
+  toggleMarker(id: number) {
     if (this.pickedMarker) {
         this.pickedMarker.marker.setIcon(this.commonIcon);
     }
@@ -114,11 +114,11 @@ export class MapComponent implements OnInit {
 
   resetMarkers() {
     const selected = this.ngRedux.getState().selected;
+
     this.clearMap();
     this.setMarkers();
 
     this.toggleMarker(selected);
-
   }
 
   clearMap() {
@@ -129,8 +129,6 @@ export class MapComponent implements OnInit {
     }
 
     this.mapMarkers = [];
-
     this.pickedMarker = null;
   }
 }
-

@@ -18,9 +18,7 @@ export class LocationListControllerComponent {
   longitude: number = 12.0;
   filter: string = '';
 
-  constructor(private ngRedux: NgRedux<IAppState>) {
-    console.log(this.ngRedux.getState().locations)
-  }
+  constructor(private ngRedux: NgRedux<IAppState>) { }
 
   addLocation() {
     this.ngRedux.dispatch(LocationActions.addLocation({

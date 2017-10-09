@@ -2,13 +2,16 @@
   <div class="list__header">
     <div class="list__row">
       <div class="list__cell">Name</div>
+
       <div class="list__cell">
         <div>Latitude</div>
         <div>Longitude</div>
       </div>
+
       <div class="list__cell">Action</div>
     </div>
   </div>
+
   <div class="list__body">
     <label
       class="list__row"
@@ -17,6 +20,7 @@
       [for]="'location' + i"
     >
       <div class="list__cell">{{item.name}}</div>
+
       <div class="list__cell">
         <div>{{item.latLng[0]}}</div>
         <div>{{item.latLng[1]}}</div>
@@ -31,6 +35,7 @@
           >
           Delete
         </div>
+        
       </div>
       <input 
         type="radio"

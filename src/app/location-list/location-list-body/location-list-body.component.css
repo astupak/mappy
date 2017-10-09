@@ -13,12 +13,11 @@
   display: none;
 }
 
-
 .list__row {
-  display: flex;
   align-items: center;
-  min-height: 50px;
   border-bottom: 1px solid #e2e2e2;
+  display: flex;
+  min-height: 50px;
 }
 
 .list__body .list__row:hover {
