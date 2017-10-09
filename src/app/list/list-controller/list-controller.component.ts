@@ -6,26 +6,32 @@ import { LatLng } from 'leaflet';
 
 
 @Component({
-  selector: 'app-location-list-controller',
-  templateUrl: './location-list-controller.component.html',
-  styleUrls: ['location-list-controller.component.css']
+  selector: 'app-list-controller',
+  templateUrl: './list-controller.component.html',
+  styleUrls: ['list-controller.component.css']
 })
 
-export class LocationListControllerComponent {
+export class ListControllerComponent {
   
+  filterButtonText: string = 'Filter';
+  addButtonText: string = 'Add';
   locationName: string = 'Location';
   latitude: number = 55.0;
   longitude: number = 12.0;
+  filter: string = '';
 
-  constructor(private ngRedux: NgRedux<IAppState>) {
-    console.log(this.ngRedux.getState().locations)
-  }
+  constructor(private ngRedux: NgRedux<IAppState>) { }
 
   addLocation() {
     this.ngRedux.dispatch(LocationActions.addLocation({
       name: this.locationName,
       latLng: [Math.round(this.latitude * 100)/100, Math.round(this.longitude*100)/100],
     }))
+  }
+
+  applyFilter() {
+    this.ngRedux.dispatch(LocationActions.setFilter(this.filter));
+    this.ngRedux.dispatch(LocationActions.applyFilter());
   }
 
 }

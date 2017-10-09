@@ -2,42 +2,38 @@
   <div class="list__header">
     <div class="list__row">
       <div class="list__cell">Name</div>
+
       <div class="list__cell">
         <div>Latitude</div>
         <div>Longitude</div>
       </div>
+
       <div class="list__cell">Action</div>
     </div>
   </div>
+
   <div class="list__body">
     <label
       class="list__row"
-      [class.list__row_checked]="(selected | async) == i"
+      [class.list__row_checked]="(selected | async) == item.id"
       *ngFor="let item of locations | async; index as i"
       [for]="'location' + i"
     >
       <div class="list__cell">{{item.name}}</div>
+
       <div class="list__cell">
         <div>{{item.latLng[0]}}</div>
         <div>{{item.latLng[1]}}</div>
       </div>
       <div class="list__cell">
-        <!-- 
-          #todo: make a proper button, you lazy pleb!
-        -->
-        <div 
-          style="height: 30px; width: 90px; line-height: 30px; text-align: center; border-radius: 3px; background: #ff4444; color: #fff"
-          (click) = "deleteLocation(i, $event)"
-          >
-          Delete
-        </div>
+        <app-button [text]="buttonText" [danger]="true" (isClicked)="deleteLocation(i)"></app-button>
       </div>
       <input 
         type="radio"
         name="locations"
         [id]="'location' + i"
         [value]="i"
-        [checked]="(selected | async) == i"
+        [checked]="(selected | async) == item.id"
         (change) = "pickLocation(i)"
       >
     </label>

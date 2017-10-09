@@ -3,22 +3,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-
 import { StoreModule } from '../store/module';
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
-import { LocationListComponent } from './location-list/location-list.component';
-import { LocationListBodyComponent } from './location-list/location-list-body/location-list-body.component';
-import { LocationListControllerComponent } from './location-list/location-list-controller/location-list-controller.component';
-
+import { ButtonComponent } from './button/button.component';
+import { ListComponent } from './list/list.component';
+import { ListBodyComponent } from './list/list-body/list-body.component';
+import { ListControllerComponent } from './list/list-controller/list-controller.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
-    LocationListComponent,
-    LocationListBodyComponent,
-    LocationListControllerComponent
+    ButtonComponent,
+    ListComponent,
+    ListBodyComponent,
+    ListControllerComponent
   ],
   imports: [
     BrowserModule,
@@ -29,4 +29,5 @@ import { LocationListControllerComponent } from './location-list/location-list-c
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
