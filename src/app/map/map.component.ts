@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import 'rxjs/add/operator/pairwise';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/skip';
 import { NgRedux, select } from '@angular-redux/store';
 import { LocationActions } from '../../store/actions';
 import { ILocation } from '../../location/model';
@@ -42,19 +42,13 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     this.initMap();
     this.setMarkers();
-
-    this.mapElement.setView(this.mapMarkers[0].marker.getLatLng(),5);
-
     this.selected.subscribe((id) => {
       this.toggleMarker(id);
     });
 
-    this.locations.pairwise().subscribe(([oldList, newList]) => {
-      if (oldList.length > newList.length) {
-        this.removeMarker();
-      } else {
-        this.addMarker(newList[newList.length-1]);
-      }
+    this.locations.skip(1).subscribe(() => {
+      console.log(123);
+      this.resetMarkers();
     })
   }
 
@@ -63,6 +57,8 @@ export class MapComponent implements OnInit {
     this.mapElement =  map('map', { zoomControl: false });
 
     tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(this.mapElement);
+
+    this.mapElement.setView([0,0],1);
   }
 
   pickLocation(id) {
@@ -93,20 +89,47 @@ export class MapComponent implements OnInit {
   }
 
   toggleMarker(id) {
-    if (id != -1) {
-      if (this.pickedMarker) {
+    if (this.pickedMarker) {
         this.pickedMarker.marker.setIcon(this.commonIcon);
-      }
+    }
 
-      this.pickedMarker = this.mapMarkers.find((item) => item.id == id);
-      this.pickedMarker.marker.setIcon(this.pickedIcon);
-      this.mapElement.setView(this.pickedMarker.marker.getLatLng(), 5);
+    if (id != -1) {      
+      let pickedMarker = this.mapMarkers.find((item) => item.id == id);
+
+      if (pickedMarker) { 
+        this.pickedMarker = pickedMarker;
+        this.pickedMarker.marker.setIcon(this.pickedIcon);
+        this.mapElement.setView(this.pickedMarker.marker.getLatLng(), 5);
+      }
+    } else {
+      this.pickedMarker = null;
     }
   }
 
   removeMarker() {
     this.mapMarkers.splice(this.mapMarkers.findIndex((item) => item.id == this.pickedMarker.id), 1);
     this.pickedMarker.marker.remove();
+    this.pickedMarker = null;
+  }
+
+  resetMarkers() {
+    const selected = this.ngRedux.getState().selected;
+    this.clearMap();
+    this.setMarkers();
+
+    this.toggleMarker(selected);
+
+  }
+
+  clearMap() {
+    const selected = this.ngRedux.getState().selected;
+
+    for (let location of this.mapMarkers) {
+      location.marker.remove();
+    }
+
+    this.mapMarkers = [];
+
     this.pickedMarker = null;
   }
 }

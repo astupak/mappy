@@ -16,6 +16,7 @@ export class LocationListControllerComponent {
   locationName: string = 'Location';
   latitude: number = 55.0;
   longitude: number = 12.0;
+  filter: string = '';
 
   constructor(private ngRedux: NgRedux<IAppState>) {
     console.log(this.ngRedux.getState().locations)
@@ -26,6 +27,12 @@ export class LocationListControllerComponent {
       name: this.locationName,
       latLng: [Math.round(this.latitude * 100)/100, Math.round(this.longitude*100)/100],
     }))
+  }
+
+  applyFilter() {
+    this.ngRedux.dispatch(LocationActions.setFilter(this.filter));
+    this.ngRedux.dispatch(LocationActions.applyFilter());
+    console.log(this.ngRedux.getState())
   }
 
 }

@@ -1,31 +1,60 @@
 <div class="controller">
-  <div class="controller__field">
-    <div class="controller__fieldContent">
-      <label for="name">Name</label>
-      <input type="text" name="name" [(ngModel)]="locationName">
-    </div>    
-  </div>
-  <div class="controller__field">
-   <div class="controller__fieldContent">
-      <label for="latitude">Latitude</label>
-      <input type="number" name="latitude" [(ngModel)]="latitude">
+  <div class="controller__row">
+
+    <div class="controller__field">
+      <div class="controller__fieldContent">
+        <label for="filter">Name Filter</label>
+        <input type="text" name="filter" [(ngModel)]="filter">
+      </div>    
     </div>
-    <div class="controller__fieldContent">
-      <label for="longitude">Longitude</label>
-      <input type="number" name="longitude" [(ngModel)]="longitude">
-    </div>
-  </div>
-  <div class="controller__field">
-    <div class="controller__fieldContent">
-          <!-- 
-            #todo: make a proper button, you lazy pleb!
-          -->
-         <div 
+
+    <div class="controller__field"></div>
+    <div class="controller__field">
+      <div class="controller__fieldContent">
+        <!-- 
+          #todo: make a proper button, you lazy pleb!
+        -->
+        <div 
           style="height: 30px; width: 90px; line-height: 30px; text-align: center; border-radius: 3px; background: #00E676; color: #fff"
-          (click) = "addLocation()"
-          >
-          Add
+          (click) = "applyFilter()">
+          Filter
         </div>
+      </div>    
     </div>
   </div>
+
+  <div class="controller__row">
+
+    <div class="controller__field">
+      <div class="controller__fieldContent">
+        <label for="name">Name</label>
+        <input type="text" name="name" [(ngModel)]="locationName">
+      </div>    
+    </div>
+
+    <div class="controller__field">
+     <div class="controller__fieldContent">
+        <label for="latitude">Latitude</label>
+        <input type="number" name="latitude" [(ngModel)]="latitude">
+      </div>
+      <div class="controller__fieldContent">
+        <label for="longitude">Longitude</label>
+        <input type="number" name="longitude" [(ngModel)]="longitude">
+      </div>
+    </div>
+
+    <div class="controller__field">
+      <div class="controller__fieldContent">
+            <!-- 
+              #todo: make a proper button, you lazy pleb!
+            -->
+           <div 
+            style="height: 30px; width: 90px; line-height: 30px; text-align: center; border-radius: 3px; background: #00E676; color: #fff"
+            (click) = "addLocation()"
+            >
+            Add
+          </div>
+      </div>
+    </div>
+  </div>  
 </div>

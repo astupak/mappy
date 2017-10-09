@@ -12,8 +12,10 @@ export class StoreModule {
     const locations = this.parseData(data.locations);
     
     store.configureStore( rootReducer, {
+      rawLocations: locations,
       locations: locations,
       selected: -1,
+      filter: '',
       _id: locations.length
     });
   }
