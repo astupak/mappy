@@ -9,10 +9,22 @@ import data from '../location/locations.mock.json';
 @NgModule({})
 export class StoreModule {
   constructor (public store: NgRedux<IAppState>) {
+    const locations = this.parseData(data.locations);
     
     store.configureStore( rootReducer, {
-     locations: data.locations,
-     selected: -1,
+      locations: locations,
+      selected: -1,
+      _id: locations.length
+    });
+  }
+
+  parseData(data) {
+    let id = 0;
+
+    return data.map((item) => {
+      item.id = id++;
+
+      return item;
     });
   }
 }

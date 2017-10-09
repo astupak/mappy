@@ -12,7 +12,7 @@
   <div class="list__body">
     <label
       class="list__row"
-      [class.list__row_checked]="(selected | async) == i"
+      [class.list__row_checked]="(selected | async) == item.id"
       *ngFor="let item of locations | async; index as i"
       [for]="'location' + i"
     >
@@ -37,7 +37,7 @@
         name="locations"
         [id]="'location' + i"
         [value]="i"
-        [checked]="(selected | async) == i"
+        [checked]="(selected | async) == item.id"
         (change) = "pickLocation(i)"
       >
     </label>

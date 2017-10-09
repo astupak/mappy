@@ -3,27 +3,37 @@ import { LocationAction, LocationActions } from './actions';
 
 
 export const rootReducer = function(state: IAppState, action: LocationAction): IAppState{
-  console.log(action);
   switch (action.type) {
     case LocationActions.ADD_LOCATION:
+
+      let newLocation = Object.assign({}, action.payload, { id: state._id });
+
       return Object.assign({}, state, {
-        locations: [...state.locations, action.payload]
+        locations: [ ...state.locations, newLocation ],
+        _id: state._id+1,
       });
 
     case LocationActions.DELETE_LOCATION:
+
       if (state.selected === -1) {
         return state;
       }
 
       const newLocations = Array.from(state.locations);
-      newLocations.splice(state.selected, 1);
-      return Object.assign({}, {
+      const index = newLocations.findIndex((item) => item.id == state.selected);
+
+
+      newLocations.splice(index, 1);
+      
+      return Object.assign({}, state, {
         locations: newLocations,
         selected: -1
       });
 
     case LocationActions.PICK_LOCATION:
+
       return Object.assign({}, state, { selected: action.payload});
   }
+  
   return state;
 };

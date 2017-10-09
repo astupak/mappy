@@ -21,11 +21,12 @@ export class LocationListBodyComponent {
   }
 
   pickLocation(index) {
-    this.ngRedux.dispatch(LocationActions.pickLocation(index));
+    const id = this.ngRedux.getState().locations[index].id;
+    this.ngRedux.dispatch(LocationActions.pickLocation(id));
   }
 
   deleteLocation(index, event) {
-    this.ngRedux.dispatch(LocationActions.pickLocation(index));
+    this.pickLocation(index);
     this.ngRedux.dispatch(LocationActions.deleteLocation());
 
     event.stopPropagation();

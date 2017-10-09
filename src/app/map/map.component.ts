@@ -6,7 +6,9 @@ import { LocationActions } from '../../store/actions';
 import { ILocation } from '../../location/model';
 import { IAppState } from '../../store/model';
 
-import { Map, tileLayer, LatLng, Icon, map, Marker } from "leaflet";
+import { IMarker } from './marker.model';
+
+import { Map, tileLayer, LatLng, Icon, map, Marker  } from "leaflet";
 import 'style-loader!css-loader!leaflet/dist/leaflet.css';
 
 @Component({
@@ -20,9 +22,8 @@ export class MapComponent implements OnInit {
   @select('selected') readonly selected: Observable<number>;
 
   mapElement: Map;
-  pickedMarkerIndex: number = -1;
-  pickedMarker: Marker;
-  mapMarkers: Marker[] = [];
+  mapMarkers: IMarker[] = [];
+  pickedMarker: IMarker;
   commonIcon: Icon;
   pickedIcon: Icon;
 
@@ -39,24 +40,22 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
-   this.initMap();
-   this.setMarkers();
+    this.initMap();
+    this.setMarkers();
 
-   this.mapElement.setView(this.mapMarkers[0].getLatLng(),5);
+    this.mapElement.setView(this.mapMarkers[0].marker.getLatLng(),5);
 
-   this.selected.subscribe((index) => {
-     this.toggleMarker(index);
-   });
+    this.selected.subscribe((id) => {
+      this.toggleMarker(id);
+    });
 
-   this.locations.pairwise().subscribe(([oldList, newList]) => {
-     if (oldList.length > newList.length) {
-       this.removeMarker();
-     } else {
-       console.log(newList)
-       this.addMarker(newList[newList.length-1].latLng);
-     }
-   })
-
+    this.locations.pairwise().subscribe(([oldList, newList]) => {
+      if (oldList.length > newList.length) {
+        this.removeMarker();
+      } else {
+        this.addMarker(newList[newList.length-1]);
+      }
+    })
   }
 
   initMap() {
@@ -64,50 +63,51 @@ export class MapComponent implements OnInit {
     this.mapElement =  map('map', { zoomControl: false });
 
     tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(this.mapElement);
-
-
   }
 
-  pickLocation(index) {
-    this.ngRedux.dispatch(LocationActions.pickLocation(index));
+  pickLocation(id) {
+    this.ngRedux.dispatch(LocationActions.pickLocation(id));
   }
 
   setMarkers() {
     const locations = this.ngRedux.getState().locations;
 
-    for (let { latLng } of locations) {
-      this.addMarker(latLng);
+    for (let location of locations) {
+      this.addMarker(location);
     }
   }
 
-  addMarker(latLng) {
-    let newMarker = new Marker(new LatLng(latLng[0],latLng[1]), { icon: this.commonIcon});
+  addMarker(location) {
+    const newMarker = {
+      marker: new Marker(new LatLng(location.latLng[0],location.latLng[1]), { icon: this.commonIcon}),
+      id: location.id
+    };
 
     this.mapMarkers.push(newMarker);
-    newMarker.addTo(this.mapElement);
 
-    newMarker.on('click', () => {
-      this.pickLocation(this.mapMarkers.indexOf(newMarker));
+    newMarker.marker.addTo(this.mapElement);
+
+    newMarker.marker.on('click', () => {
+      this.pickLocation(newMarker.id);
     })
   }
 
-  toggleMarker(index) {
-    if (index != -1) {
+  toggleMarker(id) {
+    if (id != -1) {
       if (this.pickedMarker) {
-        this.pickedMarker.setIcon(this.commonIcon);
+        this.pickedMarker.marker.setIcon(this.commonIcon);
       }
-      this.pickedMarkerIndex = index;
-      this.pickedMarker = this.mapMarkers[index];
-      this.pickedMarker.setIcon(this.pickedIcon);
-      this.mapElement.setView(this.pickedMarker.getLatLng(), 5);
+
+      this.pickedMarker = this.mapMarkers.find((item) => item.id == id);
+      this.pickedMarker.marker.setIcon(this.pickedIcon);
+      this.mapElement.setView(this.pickedMarker.marker.getLatLng(), 5);
     }
   }
 
   removeMarker() {
-    this.pickedMarker.remove();
+    this.mapMarkers.splice(this.mapMarkers.findIndex((item) => item.id == this.pickedMarker.id), 1);
+    this.pickedMarker.marker.remove();
     this.pickedMarker = null;
-    this.mapMarkers.splice(this.pickedMarkerIndex, 1);
-    this.pickedMarkerIndex = -1;
   }
 }
 
