@@ -1,0 +1,14 @@
+.button {
+  height: 30px;
+  width: 90px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 3px;
+  background: #2196F3;
+  cursor: pointer;
+  color: #fff;
+}
+
+.button_red {
+  background: #ff4444;
+}

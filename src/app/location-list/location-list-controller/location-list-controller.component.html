@@ -11,14 +11,7 @@
     <div class="controller__field"></div>
     <div class="controller__field">
       <div class="controller__fieldContent">
-        <!-- 
-          #todo: make a proper button, you lazy pleb!
-        -->
-        <div 
-          style="height: 30px; width: 90px; line-height: 30px; text-align: center; border-radius: 3px; background: #00E676; color: #fff"
-          (click) = "applyFilter()">
-          Filter
-        </div>
+        <app-button [text]="filterButtonText" (isClicked)="applyFilter()"></app-button>
       </div>    
     </div>
   </div>
@@ -46,15 +39,7 @@
 
     <div class="controller__field">
       <div class="controller__fieldContent">
-            <!-- 
-              #todo: make a proper button, you lazy pleb!
-            -->
-           <div 
-            style="height: 30px; width: 90px; line-height: 30px; text-align: center; border-radius: 3px; background: #00E676; color: #fff"
-            (click) = "addLocation()"
-            >
-            Add
-          </div>
+        <app-button [text]="addButtonText" (isClicked)="addLocation()"></app-button>
       </div>
     </div>
   </div>  

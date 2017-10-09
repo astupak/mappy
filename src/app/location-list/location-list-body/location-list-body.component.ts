@@ -15,18 +15,17 @@ export class LocationListBodyComponent {
   @select('locations') readonly locations: Observable<ILocation[]>;
   @select('selected') readonly selected: Observable<number>;
 
+  buttonText: string = 'Delete';
+
   constructor(private ngRedux: NgRedux<IAppState>) { }
 
   pickLocation(index) {
     const id = this.ngRedux.getState().locations[index].id;
-    
     this.ngRedux.dispatch(LocationActions.pickLocation(id));
   }
 
-  deleteLocation(index, event) {
+  deleteLocation(index) {
     this.pickLocation(index);
     this.ngRedux.dispatch(LocationActions.deleteLocation());
-
-    event.stopPropagation();
   }
 }

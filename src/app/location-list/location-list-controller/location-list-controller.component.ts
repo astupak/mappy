@@ -13,6 +13,8 @@ import { LatLng } from 'leaflet';
 
 export class LocationListControllerComponent {
   
+  filterButtonText: string = 'Filter';
+  addButtonText: string = 'Add';
   locationName: string = 'Location';
   latitude: number = 55.0;
   longitude: number = 12.0;
@@ -30,7 +32,6 @@ export class LocationListControllerComponent {
   applyFilter() {
     this.ngRedux.dispatch(LocationActions.setFilter(this.filter));
     this.ngRedux.dispatch(LocationActions.applyFilter());
-    console.log(this.ngRedux.getState())
   }
 
 }
